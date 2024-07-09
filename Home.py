@@ -1,6 +1,8 @@
 import streamlit as st
 import pandas as pd
 
+st.set_page_config(layout="wide")
+
 col1, col2 = st.columns(2)
 
 with col1:
@@ -16,7 +18,7 @@ with col2:
 
 st.write("Here you can find the projects i did so far.")
 
-col3, col4 = st.columns(2)
+col3, emptyColumn, col4 = st.columns([3, 1, 3])
 
 df = pd.read_csv("data.csv", sep=";")
 
@@ -24,9 +26,14 @@ with col3:
     for index, row in df.iterrows():
         if index % 2 == 0:
             st.header(row["title"])
-            st.image()
+            st.write(row["description"])
+            st.image("images/" + row["image"], use_column_width=True)
+            st.write(f"[Source Code]({row['url']})")
 
 with col4:
     for index, row in df.iterrows():
         if index % 2 == 1:
             st.header(row["title"])
+            st.write(row["description"])
+            st.image("images/" + row["image"], use_column_width=True)
+            st.write(f"[Source Code]({row['url']})")
